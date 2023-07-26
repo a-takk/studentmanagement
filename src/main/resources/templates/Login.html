@@ -7,7 +7,7 @@
 </head>
 <body>
 <div class="container">
-  <form action="Login.html" method="post" class="mt-4">
+  <form th:href="@{/user/login}" method="post" class="mt-4">
     <h1 class="text-center">Login</h1>
     <hr>
     <div class="row justify-content-center">
@@ -20,7 +20,7 @@
             <input type="password" placeholder="Password" id="password" class="form-control mb-3" required>
           </label>
           <label>
-            <a th:href="@{/signup}">Don't have an account? Sign up here!</a>
+            <a th:href="@{/user/signup}">Don't have an account? Sign up here!</a>
           </label>
           <label>
             <button type="button" class="btn btn-primary mt-3">Submit</button>
@@ -30,7 +30,7 @@
     </div>
     <hr>
   </form>
-  <button type="button" class="btn btn-primary" href="/student/list">Student List</button>
+  <a type="button" class="btn btn-primary" th:href="@{/student/list}">Student List</a>
 </div>
 </body>
 </html>

@@ -1,4 +1,4 @@
-package com.example.student.Entity;
+package com.example.studentmanagement.Entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.Valid;

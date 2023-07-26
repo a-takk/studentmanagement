@@ -1,13 +1,14 @@
-package com.example.student.Controller;
+package com.example.studentmanagement.Controller;
 
-import com.example.student.Entity.User;
-import com.example.student.Repository.UserRepository;
+import com.example.studentmanagement.Entity.User;
+import com.example.studentmanagement.Repository.UserRepository;
+import jakarta.persistence.Id;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
+@RequestMapping("/user")
 public class UserController {
     private final UserRepository userRepository;
 
@@ -22,9 +23,10 @@ public class UserController {
         return "SignUp";
     }
 
-    @GetMapping("/login")
+    @RequestMapping("/login")
     public String login() {
         return "Login";
     }
+
 }
 
