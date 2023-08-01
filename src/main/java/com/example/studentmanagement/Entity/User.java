@@ -3,14 +3,17 @@ package com.example.studentmanagement.Entity;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Value;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Entity
 @Table(name = "user_details")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Long id;
     @Column(name = "email")
@@ -24,7 +27,7 @@ public class User {
         this.id = id;
         this.email = email;
         this.fullname = fullname;
-        this.password = password;
+        setPassword(password);
     }
 
     public User() {
@@ -59,7 +62,9 @@ public class User {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String hashPass = passwordEncoder.encode(password);
+        this.password = hashPass;
     }
 
     @Override

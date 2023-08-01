@@ -1,8 +1,8 @@
 package com.example.studentmanagement.Controller;
 
 import com.example.studentmanagement.Entity.Student;
+import com.example.studentmanagement.Entity.User;
 import com.example.studentmanagement.Repository.StudentRepository;
-import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +11,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/student")
+@SessionAttributes(("users"))
 public class StudentController {
     private final StudentRepository studentRepository;
 
@@ -18,6 +19,10 @@ public class StudentController {
         this.studentRepository = studentRepository;
     }
 
+    @ModelAttribute("users")
+    public User user() {
+        return new User();
+    }
     @GetMapping("/list")
     public String listAllStudents(ModelMap modelMap) {
         List<Student> students = studentRepository.findAll();
@@ -39,7 +44,7 @@ public class StudentController {
     }
 
     @GetMapping("/delete")
-    public String deleteStudent(@RequestParam("student") Student student) {
+    public String deleteStudent(@RequestParam(value = "student") Student student) {
         studentRepository.delete(student);
         return "redirect:/student/list";
     }

@@ -8,7 +8,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/user")
 public class UserController {
     private final UserRepository userRepository;
 
@@ -23,7 +22,7 @@ public class UserController {
         return "SignUp";
     }
 
-    @RequestMapping("/login")
+    @GetMapping("/login")
     public String login() {
         return "Login";
     }
