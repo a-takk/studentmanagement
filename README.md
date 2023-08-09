@@ -18,4 +18,10 @@ selected user. The last method is the delete method and uses a @RequestParam whi
 specific user delete button, will extract the value of the user and then perform the delete method and then 
 redirect back to the main screen. 
 
+The spring security makes use of 2 beans, one which is a UserDetailsManager, this one basically just has a query of 
+selecting the email and password from the user_details table where the email equals the user input. The second bean
+makes use of SecurityFilterChain which restricts the users access to a few pages to allow the user to sign up or 
+login and when they do login, they will be able to access any other pages. There is a custom login and logout page 
+too. **I haven't yet figured out how to sort out the security, when I log in I can't access any other page**
+
 **If there are any errors with my explanation please correct me as I still am quite new and would like to learn more :)**
