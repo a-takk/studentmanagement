@@ -18,4 +18,4 @@ selected user. The last method is the delete method and uses a @RequestParam whi
 specific user delete button, will extract the value of the user and then perform the delete method and then 
 redirect back to the main screen. 
 
-**If there are any errors with my explanation as I still am quite new and would like to learn more :)**
+**If there are any errors with my explanation please correct me as I still am quite new and would like to learn more :)**
