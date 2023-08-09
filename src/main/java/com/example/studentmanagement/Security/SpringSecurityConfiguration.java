@@ -4,7 +4,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
@@ -23,15 +22,22 @@ public class SpringSecurityConfiguration {
         );
         return jdbcUserDetailsManager;
     }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests(configurer ->
-                        configurer.anyRequest().authenticated()) //all requests made to other pages must be authenticated
+                .authorizeHttpRequests(configurer -> configurer
+                        .requestMatchers("/login","/signup","/logout")
+                        .permitAll() //user is able to access these pages as they are permitted
+                        .anyRequest()
+                        .authenticated()) //all requests made to other pages must be authenticated
                 .formLogin(form -> form
-                        .loginPage("/signup")
                         .loginPage("/login")
-                        .permitAll()); //permits all users for these pages
+                        .permitAll()) //permits all users for these pages
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/login")
+                        .permitAll());
         return http.build();
     }
 }

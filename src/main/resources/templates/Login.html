@@ -7,12 +7,15 @@
 </head>
 <body>
 <div class="container">
-  <form action="#" method="get" class="mt-4">
+  <form th:action="@{/student/list}" method="get" class="mt-4">
     <h1 class="text-center">Login</h1>
     <hr>
     <div class="row justify-content-center">
       <div class="col-lg-6">
         <div class="d-flex flex-column align-items-center">
+          <div th:if="${param.error}">
+            <p>Your details are incorrect, please try again.</p>
+          </div>
           <label>
             <input type="email" placeholder="Email Address" class="form-control mb-3" required>
           </label>
@@ -23,7 +26,7 @@
             <a th:href="@{/signup}">Don't have an account? Sign up here!</a>
           </label>
           <label>
-            <button type="submit" class="btn btn-primary mt-3">Submit</button>
+            <button type="submit" value="Login" class="btn btn-primary mt-3">Submit</button>
           </label>
         </div>
       </div>

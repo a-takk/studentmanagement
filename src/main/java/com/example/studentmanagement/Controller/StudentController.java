@@ -11,7 +11,6 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/student")
-@SessionAttributes(("users"))
 public class StudentController {
     private final StudentRepository studentRepository;
 
@@ -19,10 +18,6 @@ public class StudentController {
         this.studentRepository = studentRepository;
     }
 
-    @ModelAttribute("users")
-    public User user() {
-        return new User();
-    }
     @GetMapping("/list")
     public String listAllStudents(ModelMap modelMap) {
         List<Student> students = studentRepository.findAll();

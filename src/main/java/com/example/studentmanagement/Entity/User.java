@@ -1,12 +1,6 @@
 package com.example.studentmanagement.Entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
-import lombok.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Entity
@@ -63,8 +57,7 @@ public class User {
 
     public void setPassword(String password) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String hashPass = passwordEncoder.encode(password);
-        this.password = hashPass;
+        this.password = passwordEncoder.encode(password);
     }
 
     @Override
