@@ -7,7 +7,7 @@
 </head>
 <body>
 <div class="container">
-  <form th:action="@{/student/update}" th:object="${students}" method="post" class="mt-4">
+  <form th:action="@{/studentEntity/update}" th:object="${studentEntities}" method="post" class="mt-4">
     <h1 class="text-center">Update Student</h1>
     <hr>
     <div class="row justify-content-center">
@@ -33,7 +33,7 @@
     </div>
     <hr>
   </form>
-  <a type="button" class="btn btn-primary" th:href="@{/student/list}">Student List</a>
+  <a type="button" class="btn btn-primary" th:href="@{/studentEntity/list}">Student List</a>
 </div>
 </body>
 </html>

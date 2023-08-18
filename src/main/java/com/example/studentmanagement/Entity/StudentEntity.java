@@ -1,15 +1,10 @@
 package com.example.studentmanagement.Entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "student_details")
-public class Student {
+public class StudentEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,14 +17,14 @@ public class Student {
     @Column(name = "course")
     private String course;
 
-    public Student(Long id, String fullname, String course, String email) {
+    public StudentEntity(Long id, String fullname, String course, String email) {
         this.id = id;
         this.fullname = fullname;
         this.course = course;
         this.email = email;
     }
 
-    public Student() {
+    public StudentEntity() {
     }
 
     public Long getId() {

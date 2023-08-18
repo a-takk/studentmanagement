@@ -5,7 +5,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Entity
 @Table(name = "user_details")
-public class User {
+public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
@@ -17,14 +17,14 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    public User(Long id, String email, String fullname, String password) {
+    public UserEntity(Long id, String email, String fullname, String password) {
         this.id = id;
         this.email = email;
         this.fullname = fullname;
         setPassword(password);
     }
 
-    public User() {
+    public UserEntity() {
     }
 
     public Long getId() {

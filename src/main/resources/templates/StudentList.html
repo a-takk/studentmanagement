@@ -13,7 +13,7 @@
 </div>
 <h1 th:align="center" class="mt-4">Students</h1>
 <hr>
-<a type="button" class="btn btn-primary" style="position: relative; left: 165px;" th:href="@{/student/add}">Create
+<a type="button" class="btn btn-primary" style="position: relative; left: 165px;" th:href="@{/studentEntity/add}">Create
   Student</a>
 <div class="container mt-5" th:align="center">
   <table class="table table-striped">
@@ -24,14 +24,14 @@
       <td>Course</td>
       <td>Actions</td>
     </tr>
-    <tr th:each="student: ${students}" th:align="center">
-      <td th:text="${student.id}"></td>
-      <td th:text="${student.email}" style="width: 30%;"></td>
-      <td th:text="${student.fullname}"></td>
-      <td th:text="${student.course}"></td>
+    <tr th:each="studentEntity: ${studentEntities}" th:align="center">
+      <td th:text="${studentEntity.id}"></td>
+      <td th:text="${studentEntity.email}" style="width: 30%;"></td>
+      <td th:text="${studentEntity.fullname}"></td>
+      <td th:text="${studentEntity.course}"></td>
       <td style="width: 20%">
-        <a type="submit" class="btn btn-primary" th:href="@{/student/delete(student=${student.id})}">Remove</a>
-        <a type="button" class="btn btn-primary" th:href="@{/student/update(student=${student.id})}">Update</a>
+        <a type="submit" class="btn btn-primary" th:href="@{/studentEntity/delete(studentEntity=${studentEntity.id})}">Remove</a>
+        <a type="button" class="btn btn-primary" th:href="@{/studentEntity/update(studentEntity=${studentEntity.id})}">Update</a>
       </td>
     </tr>
   </table>

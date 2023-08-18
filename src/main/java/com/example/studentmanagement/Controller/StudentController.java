@@ -1,7 +1,6 @@
 package com.example.studentmanagement.Controller;
 
-import com.example.studentmanagement.Entity.Student;
-import com.example.studentmanagement.Entity.User;
+import com.example.studentmanagement.Entity.StudentEntity;
 import com.example.studentmanagement.Repository.StudentRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -20,27 +19,27 @@ public class StudentController {
 
     @GetMapping("/list")
     public String listAllStudents(ModelMap modelMap) {
-        List<Student> students = studentRepository.findAll();
-        modelMap.put("students", students);
+        List<StudentEntity> studentEntities = studentRepository.findAll();
+        modelMap.put("students", studentEntities);
         return "StudentList";
     }
     @RequestMapping( "/add")
-    public String addStudent(ModelMap modelMap, Student students) {
+    public String addStudent(ModelMap modelMap, StudentEntity students) {
         modelMap.put("students", students);
         studentRepository.save(students);
         return "AddStudent";
     }
 
     @RequestMapping("/update")
-    public String updateStudent(Student student, ModelMap modelMap) {
-        modelMap.put("students", student);
-        studentRepository.save(student);
+    public String updateStudent(StudentEntity studentEntity, ModelMap modelMap) {
+        modelMap.put("students", studentEntity);
+        studentRepository.save(studentEntity);
         return "UpdateStudent";
     }
 
     @GetMapping("/delete")
-    public String deleteStudent(@RequestParam(value = "student") Student student) {
-        studentRepository.delete(student);
+    public String deleteStudent(@RequestParam(value = "studentEntity") StudentEntity studentEntity) {
+        studentRepository.delete(studentEntity);
         return "redirect:/student/list";
     }
 }
