@@ -1,31 +1,43 @@
 package com.example.studentmanagement.Entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "user_details")
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class UserEntity {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Long id;
-    @Column(name = "email")
+
+    @Column(name = "email", nullable = false)
     private String email;
+
     @Column(name = "full_name")
     private String fullname;
+
     @Column(name = "password")
     private String password;
 
-    public UserEntity(Long id, String email, String fullname, String password) {
-        this.id = id;
-        this.email = email;
-        this.fullname = fullname;
-        setPassword(password);
-    }
-
-    public UserEntity() {
-    }
+    @ElementCollection(targetClass = RoleEntity.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<RoleEntity> roles = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -60,13 +72,11 @@ public class UserEntity {
         this.password = passwordEncoder.encode(password);
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", email='" + email + '\'' +
-                ", fullname='" + fullname + '\'' +
-                ", password='" + password + '\'' +
-                '}';
+    public Set<RoleEntity> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<RoleEntity> roles) {
+        this.roles = roles;
     }
 }

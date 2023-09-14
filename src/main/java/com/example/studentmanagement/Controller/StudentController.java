@@ -1,45 +1,44 @@
 package com.example.studentmanagement.Controller;
 
 import com.example.studentmanagement.Entity.StudentEntity;
-import com.example.studentmanagement.Repository.StudentRepository;
+import com.example.studentmanagement.Entity.UserEntity;
+import com.example.studentmanagement.Service.ManagementServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @Controller
 @RequestMapping("/student")
+@SessionAttributes("userName")
 public class StudentController {
-    private final StudentRepository studentRepository;
+    private final ManagementServiceImpl managementService;
 
-    public StudentController(StudentRepository studentRepository) {
-        this.studentRepository = studentRepository;
+    public StudentController(ManagementServiceImpl managementService) {
+        this.managementService = managementService;
     }
 
-    @GetMapping("/list")
+    @RequestMapping("/list")
     public String listAllStudents(ModelMap modelMap) {
-        List<StudentEntity> studentEntities = studentRepository.findAll();
-        modelMap.put("students", studentEntities);
+        managementService.listAllStudents(modelMap);
         return "StudentList";
     }
+
+
     @RequestMapping( "/add")
-    public String addStudent(ModelMap modelMap, StudentEntity students) {
-        modelMap.put("students", students);
-        studentRepository.save(students);
-        return "AddStudent";
+    public String addStudent(ModelMap modelMap, @ModelAttribute("studentEntity") StudentEntity studentEntity) {
+        managementService.addStudent(modelMap, studentEntity);
+        return "StudentAdd";
     }
 
     @RequestMapping("/update")
-    public String updateStudent(StudentEntity studentEntity, ModelMap modelMap) {
-        modelMap.put("students", studentEntity);
-        studentRepository.save(studentEntity);
-        return "UpdateStudent";
+    public String updateStudent(ModelMap modelMap, @ModelAttribute("studentEntity") StudentEntity studentEntity) {
+        managementService.updateStudent(modelMap, studentEntity);
+        return "StudentUpdate";
     }
 
     @GetMapping("/delete")
     public String deleteStudent(@RequestParam(value = "studentEntity") StudentEntity studentEntity) {
-        studentRepository.delete(studentEntity);
+        managementService.deleteStudent(studentEntity);
         return "redirect:/student/list";
     }
 }

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script>document.title = "StudentManagement - Admin Dashboard";</script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar navbar-dark navbar-expand-lg" style="background-color: black">
+  <a class="navbar-brand ms-3" style="color: white" th:href="@{/home}">StudentManagement</a>
+  <div class="navbar-collapse">
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/student/list}">Student List</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/student/add}">Add Student</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle me-2" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">Account</a>
+        <div class="dropdown-menu dropdown-menu-dark mt-3" style="right: 10px">
+          <a class="dropdown-item me-5 text-center" th:href="@{/logout}">Logout</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<h1 th:align="center" class="mt-4 mb-4">Admin Dashboard</h1>
+
+<div class="container">
+  <div class="row">
+       <div class="col-4">
+      <a th:href="@{/admin-signup}" class="card container align-items-center mt-4 card-hover text-decoration-none text-dark">
+        <h3 class="text-center mt-4">Admin Sign Up</h3>
+        <p class="mb-4">Create a new Admin here</p>
+        <i class="material-icons mb-4" style="font-size: 60px">person_add</i>
+      </a>
+    </div>
+
+    <div class="col-4">
+      <a th:href="@{/admin-workspace}" class="card container align-items-center mt-4 card-hover text-decoration-none text-dark">
+        <h3 class="text-center mt-4">Admin Workspace</h3>
+        <p class="mb-4">Create, update, delete and view all users</p>
+        <i class="material-icons mb-4" style="font-size: 60px">person_outline</i>
+      </a>
+    </div>
+
+    <div class="col-4">
+      <a th:href="@{/signupadmin}" class="card container align-items-center mt-4 card-hover text-decoration-none text-dark">
+        <h3 class="text-center mt-4">Insert here</h3>
+        <p class="mb-4">Insert here</p>
+        <i class="material-icons mb-4" style="font-size: 60px">person</i>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

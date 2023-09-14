@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script>document.title = "StudentManagement - Admin List";</script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+
+<nav class="navbar navbar-dark navbar-expand-lg" style="background-color: black">
+  <a class="navbar-brand ms-3" style="color: white" th:href="@{/home}">StudentManagement</a>
+  <div class="navbar-collapse">
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/student/list}">Student List</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/student/add}">Add Student</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle me-2" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">Account</a>
+        <div class="dropdown-menu dropdown-menu-dark mt-3" style="right: 10px">
+          <a class="dropdown-item me-5 text-center" th:href="@{/logout}">Logout</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<h1 th:align="center" class="mt-4">Admin Workspace</h1>
+
+<div class="container mt-5" th:align="center">
+  <table class="table">
+    <thead class="table-dark">
+    <tr th:align="center">
+      <td>ID</td>
+      <td>Email</td>
+      <td>Full Name</td>
+      <td>Role</td>
+      <td>Actions</td>
+    </tr>
+    </thead>
+    <tr th:each="userEntity: ${userEntity}" th:align="center">
+      <td th:text="${userEntity.id}"></td>
+      <td th:text="${userEntity.email}" style="width: 30%;"></td>
+      <td th:text="${userEntity.fullname}"></td>
+      <td th:text="${userEntity.roles}"></td>
+      <td style="width: 20%">
+        <a type="submit" class="btn btn-dark" th:href="@{/admin-workspace/delete(userEntity=${userEntity.id})}">Remove</a>
+        <a type="button" class="btn btn-dark" th:href="@{/admin-workspace/update(userEntity=${userEntity.id})}">Update</a>
+      </td>
+    </tr>
+  </table>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
