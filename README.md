@@ -53,4 +53,4 @@ The spring security makes use of 2 beans, one which is a UserDetailsManager, thi
 selecting the email and password from the user_details table where the email equals the user input. The second bean
 makes use of SecurityFilterChain which restricts the users access to a few pages to allow the user to sign up or 
 login and when they do login, they will be able to access any other pages. There is a custom login and logout page 
-too. **I haven't yet figured out how to sort out the security, when I log in I can't access any other page**
+too. 
