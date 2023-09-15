@@ -1,56 +1,27 @@
-The studentmanagement is a CRUD based application which uses 2 sets of controllers, 2 repositories,
-2 entity classes and a spring security class, it also makes use of a MySQL database, Thymeleaf and Bootstrap.
+The entity is mapped to a database, through ORM which is Object Relational Mapping, this provides us a way where we can map the objects to the tables in the database, 
+this manages the communication between the entities and the database. In my application I had 2 tables which were created by the entities, 
+one called “student_details” and the other “user_details”, we assign columns to the variables so that when we set the password for example, 
+it will insert it into the database with the password already hashed into that specific column. 
 
-Thymeleaf is a modern server-side template engine for Java, Thymeleaf binds to the variables 
-in the entity classes and using Bootstrap, I had created the elements of the page such as the buttons, fields
-etc. Nothing crazy just simple navigation. 
+Another thing I had done was created an enum which had contained a user and admin which were the two roles I wanted for the app. 
+The @Enumerated allowed me to store these values in the database which was assigned to a Set of RoleEntity so both enums would get inserted into the database upon adding them using the Set method. 
 
-The StudentController class is there to manage the requests for the students, prepare the model and return 
-the view. Firstly I had injected the studentRepository class, this time I had not used a Service class to handle
-the logic. 
+Next I had created a User and Student repository, this is to implement the CRUD methods for the entities, we don’t have to write any SQL queries, 
+it is connected via the generics where we assign the class and Long which is the primary id. 
 
-    //findall students
-    @GetMapping("/list")
-    public String listAllStudents(ModelMap modelMap) {
-        List<Student> students = studentRepository.findAll();
-        modelMap.put("students", students);
-        return "StudentList";
-    }
-    
-    //add student
-    @RequestMapping( "/add")
-    public String addStudent(ModelMap modelMap, Student students) {
-        modelMap.put("students", students);
-        studentRepository.save(students);
-        return "AddStudent";
-    }
+A service implementation class is used to handle all the business logic, I created several methods in a service interface to implement into the implementation class. 
+I had then injected both repositories which is used to save, find, or delete. I had used the add method from the Set collection which allowed me to assign the role to 
+the user when they had inserted their details into the form. 
 
-    //update student
-    @RequestMapping("/update")
-    public String updateStudent(Student student, ModelMap modelMap) {
-        modelMap.put("students", student);
-        studentRepository.save(student);
-        return "UpdateStudent";
-    }
+The UserDetailsService queries the database using the find by email in the user repository as we must depend on the user repository to provide us with the querying the data. 
+Then we return the user entities so that it would find all details that are linked to the one that we are trying to load. 
+In the same class we also have granted authorities, which takes the role entity as an input and uses the stream api to process the roles and maps it to a granted authority object, 
+then collects the objects into a list.
 
-    //delete student
-    @GetMapping("/delete")
-    public String deleteStudent(@RequestParam(value = "student") Student student) {
-        studentRepository.delete(student);
-        return "redirect:/student/list";
-    }
+To summarise for the Spring Security, when we make a request it goes through a series of filters, these filters make security checks based on our config. 
+So we have limited user access to specific pages and allowed the admins to access all pages. When we perform our authentication it goes through the provider manager, 
+then through to the DAO auth manager which contains the user details service and the password encoder, it will check for the correct email, loading it from the database, 
+then returns the email, password, and role, we then have the password encoder which then decrypts the password and matches it. It will try to authenticate based off the provided details, 
+if the details are correct it will pass back a response which will then allow the user access to the endpoints.
 
-First method which was to list all the students using the find all method in studentRepository, I also 
-create an object of student and variable in all methods, and then assign it to a ModelMap string to pass it to the
-view so I can update and view the information. Next is the add student method, it uses a save method from the 
-studentRepository to save the information into the database and then display it using find all. I have another 
-method which basically acts the same way the add student method does, it just overwrites the information of the 
-selected user. The last method is the delete method and uses a @RequestParam which when the user clicks on a 
-specific user delete button, will extract the value of the user and then perform the delete method and then 
-redirect back to the main screen. 
 
-The spring security makes use of 2 beans, one which is a UserDetailsManager, this one basically just has a query of 
-selecting the email and password from the user_details table where the email equals the user input. The second bean
-makes use of SecurityFilterChain which restricts the users access to a few pages to allow the user to sign up or 
-login and when they do login, they will be able to access any other pages. There is a custom login and logout page 
-too. 
